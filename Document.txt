@@ -1,0 +1,182 @@
+Todo + Timer Application Documentation
+
+1️⃣ Project Overview
+
+Project Name: Todo + Timer Application
+
+Technology Stack:
+
+Backend: Laravel (PHP 10)
+Frontend: React.js (Create-React-App)
+Database: MySQL
+HTTP Client: Axios
+Timer Alarm: Browser Audio
+
+Purpose:
+
+A simple yet professional Todo application where users can:
+Add tasks with a specified duration (in minutes)
+View the list of tasks
+Mark tasks as completed
+Delete tasks
+Start a timer for each task with an alarm when time is up
+This application demonstrates full-stack development using Laravel for API backend and React for the frontend.
+
+2️⃣ Folder Structure
+
+Backend (Laravel)
+backend/
+ ├─ app/
+ │   ├─ Http/
+ │   │   ├─ Controllers/
+ │   │   │    └─ Api/TodoController.php
+ │   │   └─ Requests/
+ │   │        └─ StoreTodoRequest.php
+ │   ├─ Models/
+ │   │    └─ Todo.php
+ │   └─ Services/
+ │        └─ TodoService.php
+ ├─ routes/
+ │    └─ api.php
+ ├─ database/
+ │    ├─ migrations/
+ │    └─ seeders/
+ └─ composer.json
+
+
+Key Notes:
+
+TodoController handles API endpoints (index, store, complete, delete)
+StoreTodoRequest validates input for creating a todo
+TodoService contains business logic for creating, completing, deleting todos
+
+Frontend (React)
+
+frontend/
+ └─ src/
+     ├─ api/
+     │    └─ todoApi.js         # API calls to Laravel backend
+     ├─ components/
+     │    ├─ TodoForm.js        # Form for creating todos
+     │    ├─ TodoItem.js        # Single todo item with timer
+     │    ├─ TodoList.js        # Lists all todos
+     │    └─ Timer.js           # Timer component for each todo
+     ├─ hooks/                  # Custom hooks (currently empty, can extend)
+     ├─ pages/
+     │    └─ Home.js            # Main home page (optional)
+     ├─ App.js                  # Main App component
+     └─ index.js                # Entry point
+
+
+Key Notes:
+
+Each component has enhanced UI for a professional look Timer.js handles countdown and alarm functionality todoApi.js manages all HTTP requests to the Laravel backend using Axios
+
+3️⃣ Backend API Endpoints
+
+Method	Endpoint	Description
+GET	/api/todos	Fetch all todos
+POST	/api/todos	Create a new todo
+PATCH	/api/todos/{id}/complete	Mark todo as completed
+DELETE	/api/todos/{id}	Delete a todo
+
+Example Request Body (POST /api/todos):
+
+{
+  "title": "Study React",
+  "duration": 25
+}
+
+4️⃣ Frontend Usage
+
+TodoList Component
+Fetches todos from backend on load
+Displays all todos using TodoItem
+Contains TodoForm for adding new tasks
+TodoForm Component
+Input fields: title (string), duration (number, minutes)
+Calls createTodo API function on submit
+Clears form after successful submission
+TodoItem Component
+Displays todo title, duration, status
+
+Buttons:
+
+Mark Completed → Calls completeTodo API
+Delete → Calls deleteTodo API
+Contains Timer component for countdown
+
+Timer Component
+
+Props: duration (minutes), onComplete (callback)
+
+State:
+
+secondsLeft → remaining seconds
+isRunning → timer status
+
+Controls:
+
+Start → start countdown
+Stop → pause countdown
+Reset → reset timer
+
+Alarm:
+
+Plays a sound when timer reaches 0
+Calls onComplete callback
+
+5️⃣ UI Design & Enhancements
+
+Modern, clean UI using flexbox and border-radius
+Colors indicate status:
+Completed todos → gray background + strikethrough
+Active todos → light background
+Buttons use consistent colors for actions:
+Add → Green
+Complete → Blue
+Delete → Red
+Timer → Start/Stop/Reset → Green/Yellow/Gray
+Responsive layout for desktop and small screens
+
+6️⃣ Installation & Setup
+Backend
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+# Configure database in .env
+php artisan migrate
+php artisan serve
+
+Frontend
+
+cd frontend
+npm install
+npm start
+
+
+Backend runs on http://127.0.0.1:8000
+Frontend runs on http://localhost:3000
+
+7️⃣ How to Contribute / Extend
+
+Add more API endpoints in TodoController
+Add new components or hooks in React (src/hooks)
+Enhance Timer with progress bars or notifications
+Add authentication for multiple users
+Refactor styles using CSS frameworks (Tailwind, Material-UI)
+
+8️⃣ Notes & Best Practices
+
+Separation of concerns: Backend handles logic, frontend handles UI
+Validation: StoreTodoRequest ensures clean data
+Reusability: Components and API calls are modular
+Professional structure: Mirrors real-world industry projects
+
+9️⃣ Future Improvements
+
+Add user authentication (JWT or Laravel Sanctum)
+Persistent timer state even if user refreshes page
+Notifications for completed todos
+Mobile-friendly UI enhancements
